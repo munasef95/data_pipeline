@@ -18,10 +18,11 @@ class ExtractText:
         blur = cv2.GaussianBlur(gray,(9,9),0)
         thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 30)
 
-        #DILATING TO COMBINE ADJ TEXT CONTOURS
+        
         kernal = cv2.getStructuringElement(cv2.MORPH_RECT, (9,9))
         dilate = cv2.dilate(thresh, kernal, iterations=2)
-
+        
+        #check dilation
         cv2.imshow("dilate", cv2.resize(dilate,  (980, 1060)))
         cv2.waitKey(0)
         
@@ -45,7 +46,8 @@ class ExtractText:
             else:
                 image = cv2.rectangle(im, (x, y), (2200, y + h), color=(255, 0, 255), thickness=3)
                 line_items_coordinates.append([(x, y), (2200, y + h)])
-
+        
+        #check text rectangles
         cv2.imshow('image_1', cv2.resize(image, (980, 1060)))
         cv2.waitKey(0)
         cv2.destroyAllWindows()
@@ -69,7 +71,9 @@ class ImagifyPdf:
         for file in os.listdir(self.folderpath):
             self.filepath = os.path.join(self.folderpath, file)
             if os.path.splitext(self.filepath)[1].lower() == '.pdf':
+                # troubleshoot check filepath 
                 print(self.filepath)
+                # check for pdf conversion to image
                 input("press any key to continue")
                 self.convert_pdf_to_image(dpi)
             else:
