@@ -35,7 +35,6 @@ class ocrByImageRegion:
         #cv2.waitKey(0)
         #cv2.destroyAllWindows()
         extracted_data = tess.image_to_string(name_roi).strip()
-        #print (extracted_data)
         return extracted_data
 
     #compiles. create_roi() not required 
